@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" th:xmlns="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::main})">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<main>
+
+		<div class="container">
+
+			<div row="row">
+
+				<div class="col-md-6 offset-md-3 col-12">
+
+					<div class="card shadow mt-2">
+
+						<div class="text-center card-header">
+
+
+							<div th:if="${session.message}"
+								th:classappend="${session.message.type}"
+								class="alert alert-primary" role="alert">
+								<p th:text="${session.message.content}"></p>
+								<th:block>
+									<p th:text="${#session.removeAttribute('message')}"></p>
+								</th:block>
+
+							</div>
+
+
+							<div>
+								<h1>
+									<i class="fa fa-user-plus"></i>Signup Here
+								</h1>
+							</div>
+
+
+						</div>
+
+						<div class="card-body">
+
+							<!-- form page starts here -->
+
+
+							<form novalidate  th:action="@{/do_signup}" th:method="post"
+								th:object="${user}">
+
+
+								<div class="form-group">
+									<label for="exampleInputEmail1">Full Name </label> <input
+										type="text" name="userName" required="required"
+										th:value="${user.userName}" class="form-control "
+										th:classappend="${#fields.hasErrors('userName') ? 'is-invalid':''}"
+										placeholder="Enter your good name">
+										
+										
+									<div class="invalid-feedback" 
+									th:each="e : ${#fields.errors('userName')}"
+									th:text="${e}"
+									>
+									
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="exampleInputEmail1">Email address</label> <input
+										type="email" name="email" th:value="${user.email}" required
+										class="form-control" id="exampleInputEmail1"
+										aria-describedby="emailHelp" placeholder="Enter email">
+								</div>
+
+								<div class="form-group">
+									<label for="exampleInputPassword1">Password</label> <input
+										type="password" required name="password" class="form-control"
+										id="exampleInputPassword1" placeholder="Password">
+								</div>
+
+
+
+								<div class="form-group">
+
+									<textarea name="userAbout" rows="5"
+										placeholder="Enter about yourself"
+										th:value="${user.userAbout}" class="form-control"></textarea>
+
+								</div>
+
+
+								<div class="form-check">
+									<input name="check" type="checkbox" class="form-check-input"
+										id="exampleCheck1"> <label class="form-check-label"
+										for="exampleCheck1">Accept the terms and conditions</label>
+								</div>
+								<div class="text-center">
+									<button type="submit" class="btn btn-primary">Signup</button>
+									<button type="reset" class="btn btn-danger">Reset</button>
+
+								</div>
+							</form>
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</main>
+
+</body>
+</html>
