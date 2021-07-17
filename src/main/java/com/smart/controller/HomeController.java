@@ -70,7 +70,7 @@ public class HomeController {
 
 			model.addAttribute("user", user);
 			e.printStackTrace();
-			session.setAttribute("message", new Message("Something went wrong.." + e.getMessage(), "alert-danger"));
+			session.setAttribute("message", new Message("Something went wrong.", "alert-danger"));
 			return "signup";
 		}
 
