@@ -45,7 +45,7 @@
 							<!-- form page starts here -->
 
 
-							<form novalidate  th:action="@{/do_signup}" th:method="post"
+							<form   th:action="@{/do_signup}" th:method="post"
 								th:object="${user}">
 
 
@@ -53,17 +53,15 @@
 									<label for="exampleInputEmail1">Full Name </label> <input
 										type="text" name="userName" required="required"
 										th:value="${user.userName}" class="form-control "
-										th:classappend="${#fields.hasErrors('userName') ? 'is-invalid':''}"
+										th:classappend="${#fields.hasErrors('userName')}?'is-invalid':''"
 										placeholder="Enter your good name">
 										
 										
-									<div class="invalid-feedback" 
-									th:each="e : ${#fields.errors('userName')}"
-									th:text="${e}"
-									>
+									<div th:each="s : ${#fields.errors('userName')}" th:text="${s}"
+								class="invalid-feedback"></div>
 									
 									</div>
-								</div>
+								
 
 
 								<div class="form-group">
