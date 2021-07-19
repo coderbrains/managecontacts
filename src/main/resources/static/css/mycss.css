@@ -15,3 +15,24 @@ body{
 	background:linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),  url(../img/ramsun.jpg);
 	background-size: cover;
 }
+
+
+
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 420px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+
+
+
+
