@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +21,10 @@ import com.smart.service.UserService;
 public class HomeController {
 
 	@Autowired
-	UserService userService;
+    private	UserService userService;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -62,6 +66,9 @@ public class HomeController {
 				user.setEnable(true);
 				user.setUserRole("ROLE_USER");
 				user.setImageUrl("default.png");
+				
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				
 				userService.setUser(user);
 				session.setAttribute("message", new Message("Successfully registered.", "alert-success"));
 				return "signup";
