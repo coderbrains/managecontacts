@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-	@RequestMapping("/userdashboard")
+	@RequestMapping("/index")
 	public String userDashboard() {
-		return "user_dashboard";
+		return "index";
 	}
 	
 }
