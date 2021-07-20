@@ -62,6 +62,7 @@ body{
 	height: 100vh;
 	background: white;
 	padding-top: 45px;
+	z-index:989898989898989898989898;
 }
 
 .sidebar a{
