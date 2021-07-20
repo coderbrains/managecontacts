@@ -36,6 +36,26 @@ body{
 
 /* side bar designing... */
 
+@media only screen and (max-width:600px){
+	
+	.sidebar{
+		display:none;
+		width:80% !important;
+		background:white;
+		height:100vh;
+		padding-top: 20px;
+		position: fixed;
+	
+	}
+	
+	.content{
+	
+	margin-left: 0% !important;
+	
+	}
+	
+}
+
 .sidebar{
 	width:18%;
 	position: fixed;
@@ -69,3 +89,15 @@ body{
 	margin-left: 20%;
 }
 
+
+.sidebar .crossbtn
+{
+	
+	position:absolute;
+	cursor:pointer;
+	top:0;
+	font-size:35px;
+	right:36px;
+	
+	
+}

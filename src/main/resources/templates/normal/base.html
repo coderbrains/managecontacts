@@ -68,13 +68,15 @@
 	<!-- sidebar coding starts here -->
 	<div class="sidebar">
 
-		<a href="#" class="item">Home</a> 
-		<a href="#" class="item">Add contacts</a> 
-		<a	href="#" class="item">View contact</a> 
-		<a href="#" class="item">Your Profile</a> 
-		<a href="#"	class="item">Settings</a>
-		<a href="#"	class="item">Logout</a>
-		
+		<span onclick="toggle()" class="crossbtn">&times;</span> <a href="#"
+			class="item"><i class="fa fa-home mr-1"></i>Home</a> <a href="#"
+			class="item"><i class="fa fa-pencil mr-1"></i>Add contacts</a> <a
+			href="#" class="item"><i class="fa fa-id-card mr-1"></i>View
+			contact</a> <a href="#" class="item"><i
+			class="fa fa-user-circle mr-1"></i>Your Profile</a> <a href="#"
+			class="item"><i class="fa fa-cogs mr-1"></i>Settings</a> <a href="#"
+			class="item"><i class="fa fa-sign-out mr-1"></i>Logout</a>
+
 		<div class="divider"></div>
 
 
@@ -85,6 +87,8 @@
 
 	<!-- main content coding here. -->
 	<div class="content">
+
+		<i onclick="toggle()" class="fa fa-bars m-3" style="cursor:pointer;" ></i>
 
 		<div th:replace="${content}"></div>
 
