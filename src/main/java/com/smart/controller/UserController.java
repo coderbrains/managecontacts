@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.smart.entity.Contact;
 import com.smart.entity.User;
+import com.smart.helper.Message;
 import com.smart.service.UserService;
 
 @Controller
@@ -59,33 +62,33 @@ public class UserController {
 
 	@PostMapping("/submit_contact")
 	public String saveContact(@ModelAttribute Contact contact, @RequestParam("image") MultipartFile image,
-			Principal principal) {
+			Principal principal, HttpSession session) {
 
 		try {
 
-			
-			if(image.isEmpty()) {
-				//if the file is empty then use this
+			if (image.isEmpty()) {
+				// if the file is empty then use this
 				System.out.println("file is empty..");
-				
-			}else {
-				//the file is not empty...
-				
-				String originalFilename = System.currentTimeMillis() + "_" + image.getOriginalFilename(); 
-				
+
+			} else {
+				// the file is not empty...
+
+				String originalFilename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+
 				contact.setImageUrl(originalFilename);
-					
+
 				File file = new ClassPathResource("static/img").getFile();
-				
-				Path path = Paths.get(file.getAbsolutePath()+ File.separator + originalFilename);
-				
-				Files.copy(image.getInputStream()	, path	 , StandardCopyOption.REPLACE_EXISTING
-						);
-				
+
+				Path path = Paths.get(file.getAbsolutePath() + File.separator + originalFilename);
+
+				Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
 				System.out.println("file is uploaded...");
+				
+				
+				session.setAttribute("message", new Message("File is added successfully..", "success"));
 			}
-			
-			
+
 			String name = principal.getName();
 			User user = userService.getUser(name);
 
@@ -100,6 +103,8 @@ public class UserController {
 		} catch (Exception e) {
 			System.out.println("error: " + e.getMessage());
 			e.printStackTrace();
+
+			session.setAttribute("message", new Message("something went wrong!! try again.", "danger"));
 		}
 
 		return "normal/add_contact_form";
