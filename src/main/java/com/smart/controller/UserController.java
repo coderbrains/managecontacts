@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smart.entity.Contact;
@@ -45,6 +46,23 @@ public class UserController {
 	public String addContactForm(Model model) {
 		model.addAttribute("contact", new Contact());
 		model.addAttribute("title", " add-contact | smart contact manager");
+		return "normal/add_contact_form";
+	}
+	
+	@PostMapping("/submit_contact")
+	public String saveContact(@ModelAttribute Contact contact, Principal principal) {
+		
+		String name = principal.getName();
+		User user = userService.getUser(name);
+		
+		contact.setUser(user);
+		
+		user.getContacts().add(contact);
+		
+		userService.setUser(user);
+		
+		System.out.println(contact);
+		
 		return "normal/add_contact_form";
 	}
 	
