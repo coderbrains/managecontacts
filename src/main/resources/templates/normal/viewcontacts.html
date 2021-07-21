@@ -26,17 +26,19 @@
 									<th scope="col">Name</th>
 									<th scope="col">Mobile_No.</th>
 									<th scope="col">Email</th>
-									<th scope="col">Image</th>
+									<th scope="col">Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="c : ${contacts}">
 									<th scope="row" th:text="'SCM' +${c.contactID}"></th>
-									<td th:text="${c.name}">Mark</td>
-									<td th:text="${c.mobileNumber}">Otto</td>
-									<td th:text="${c.email}">@mdo</td>
+									<td th:text="${c.name}"></td>
+									<td th:text="${c.mobileNumber}"></td>
+									<td th:text="${c.email}"></td>
 									<td>
-									<img alt="contactimage" src="">
+									<a href="" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+									<a href="" class="btn btn-outline-info"><i class="fa fa-edit"></i></a>
+									
 									</td>
 								</tr>
 							</tbody>
