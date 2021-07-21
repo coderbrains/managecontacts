@@ -12,10 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -117,16 +121,20 @@ public class UserController {
 	
 	
 	//this is the handler for the view contacts in the user sidebar menu.
-	@GetMapping("/viewcontacts")
-	public String viewContacts(Model model, Principal principal) {
+	@GetMapping("/viewcontacts/{page}")
+	public String viewContacts(@PathVariable("page") int page, Model model, Principal principal) {
 		model.addAttribute("title", "view-contacts | smartcontact-manager");
 		
 		String name = principal.getName();
 		User user = userService.getUser(name);
 		
-		List<Contact> contacts = contactService.getContacts(user);
+		Pageable of = PageRequest.of(page, 5);
+		
+		Page<Contact> contacts = contactService.getContacts(user, of);
 		
 		model.addAttribute("contacts", contacts);
+		model.addAttribute("totalPages", contacts.getTotalPages());
+		model.addAttribute("currentPage", page);
 		
 		return "normal/viewcontacts";
 	}
