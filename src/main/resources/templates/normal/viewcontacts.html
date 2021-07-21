@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" th:xmlns="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section>
+
+		<div class="row">
+
+			<div class="col-md-12 offset-md-0 col-xs-12 col-sm-12">
+
+				<div class="card">
+
+					<div class="card-body">
+
+						<h1 class="text-center">Show contacts</h1>
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Name</th>
+									<th scope="col">Mobile_No.</th>
+									<th scope="col">Email</th>
+									<th scope="col">Image</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="c : ${contacts}">
+									<th scope="row" th:text="'SCM' +${c.contactID}"></th>
+									<td th:text="${c.name}">Mark</td>
+									<td th:text="${c.mobileNumber}">Otto</td>
+									<td th:text="${c.email}">@mdo</td>
+									<td>
+									<img alt="contactimage" src="">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</section>
+
+
+</body>
+</html>

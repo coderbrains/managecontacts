@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smart.entity.Contact;
 import com.smart.entity.User;
 import com.smart.helper.Message;
+import com.smart.service.ContactService;
 import com.smart.service.UserService;
 
 @Controller
@@ -31,6 +33,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ContactService contactService;
 
 	// method for adding common data to the view.
 
@@ -109,5 +114,24 @@ public class UserController {
 
 		return "normal/add_contact_form";
 	}
+	
+	
+	//this is the handler for the view contacts in the user sidebar menu.
+	@GetMapping("/viewcontacts")
+	public String viewContacts(Model model, Principal principal) {
+		model.addAttribute("title", "view-contacts | smartcontact-manager");
+		
+		String name = principal.getName();
+		User user = userService.getUser(name);
+		
+		List<Contact> contacts = contactService.getContacts(user);
+		
+		model.addAttribute("contacts", contacts);
+		
+		return "normal/viewcontacts";
+	}
+	
+	
+	
 
 }
