@@ -1,6 +1,7 @@
 package com.smart.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,14 @@ public class ContactService {
 		Page<Contact> findAllByUser = contactRepo.findAllByUser(user, pageable);
 		
 		return findAllByUser;
+	}
+	
+	public Contact getContact(int id) {
+		
+		Optional<Contact> findById = contactRepo.findById(id);
+		Contact contact = findById.get();
+		return contact;
+		
 	}
 	
 }

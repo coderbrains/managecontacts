@@ -78,6 +78,7 @@ public class UserController {
 			if (image.isEmpty()) {
 				// if the file is empty then use this
 				System.out.println("file is empty..");
+				contact.setImageUrl("contact.png");
 
 			} else {
 				// the file is not empty...
@@ -140,6 +141,12 @@ public class UserController {
 	}
 	
 	
-	
+	//controller for viewing details....
+	@GetMapping("/viewcontact/{id}")
+	public String viewDetails(@PathVariable("id") int id,Model model) {
 
+		Contact contact = contactService.getContact(id);
+		model.addAttribute("contact", contact);
+		return "normal/view_contact_details.html";
+	}
 }

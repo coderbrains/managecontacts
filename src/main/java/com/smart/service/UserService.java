@@ -25,4 +25,10 @@ public class UserService {
 		return userRepo.findByEmail(email);
 	}
 	
+	public User getUserusingField(int id) {
+		
+		User byId = userRepo.getById(id);
+		return byId;
+	}
+	
 }
