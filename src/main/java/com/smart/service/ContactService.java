@@ -25,11 +25,18 @@ public class ContactService {
 		return findAllByUser;
 	}
 	
+	
 	public Contact getContact(int id) {
 		
 		Optional<Contact> findById = contactRepo.findById(id);
 		Contact contact = findById.get();
 		return contact;
+		
+	}
+
+	public void deleteContact(int id) {
+	
+		contactRepo.deleteById(id);
 		
 	}
 	

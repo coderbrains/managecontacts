@@ -10,9 +10,9 @@
 	<section>
 
 		<div class="container">
-			<div class="row">
+			<div class="row justify-content-center">
 
-				<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="col-md-12 col-sm-12 col-xs-12 ">
 
 					<div class="card">
 
@@ -55,8 +55,8 @@
 								</tbody>
 							</table>
 
-							<button type="button" class="btn btn-danger btn-block">Delete</button>
-							<button type="button" class="btn btn-primary btn-block">Update</button>
+							<a type="button" th:href="@{'/user/deletecontact/'+ ${contact.contactID}}" class="btn btn-danger btn-block">Delete</a>
+							<a type="button" class="btn btn-primary btn-block">Update</a>
 
 
 						</div>

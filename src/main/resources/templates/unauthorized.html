@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" th:xmlns="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-12 col-xs-12 col-sm-12">
+
+
+					<div class="card">
+						<div class="card-header">
+							<h2 class="text-center">Unauthorized access</h2>
+
+						</div>
+
+						<div class="text-center card-body">
+
+							<img src="" th:src="@{/img/unauthorized.jpg}"
+								style="max-width: 700px; max-height: 700px; border-radius: 20%;"
+								alt="" />
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>

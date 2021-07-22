@@ -9,6 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -37,7 +38,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ContactService contactService;
 
@@ -94,8 +95,7 @@ public class UserController {
 				Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
 				System.out.println("file is uploaded...");
-				
-				
+
 				session.setAttribute("message", new Message("File is added successfully..", "success"));
 			}
 
@@ -119,34 +119,75 @@ public class UserController {
 
 		return "normal/add_contact_form";
 	}
-	
-	
-	//this is the handler for the view contacts in the user sidebar menu.
+
+	// this is the handler for the view contacts in the user sidebar menu.
 	@GetMapping("/viewcontacts/{page}")
 	public String viewContacts(@PathVariable("page") int page, Model model, Principal principal) {
 		model.addAttribute("title", "view-contacts | smartcontact-manager");
-		
+
 		String name = principal.getName();
 		User user = userService.getUser(name);
-		
+
 		Pageable of = PageRequest.of(page, 5);
-		
+
 		Page<Contact> contacts = contactService.getContacts(user, of);
-		
+
 		model.addAttribute("contacts", contacts);
 		model.addAttribute("totalPages", contacts.getTotalPages());
 		model.addAttribute("currentPage", page);
-		
+
 		return "normal/viewcontacts";
 	}
-	
-	
-	//controller for viewing details....
-	@GetMapping("/viewcontact/{id}")
-	public String viewDetails(@PathVariable("id") int id,Model model) {
 
-		Contact contact = contactService.getContact(id);
-		model.addAttribute("contact", contact);
-		return "normal/view_contact_details.html";
+	// controller for viewing details....
+	@GetMapping("/viewcontact/{id}")
+	public String viewDetails(@PathVariable("id") int id, Model model, Principal principal) {
+
+		try {
+			String name = principal.getName();
+
+			User user = userService.getUser(name);
+
+			Contact contact = contactService.getContact(id);
+
+			if (contact.getUser().equals(user)) {
+				model.addAttribute("contact", contact);
+				return "normal/view_contact_details.html";
+
+			} else {
+
+				return "unauthorized";
+
+			}
+
+		} catch (Exception e) {
+			return "unauthorized";
+		}
+
 	}
+
+	@GetMapping("/deletecontact/{id}")
+	public String deleteContact(@PathVariable("id") int id, Principal principal, HttpSession httpSession) {
+		
+		
+		String name = principal.getName();
+		
+		User user = userService.getUser(name);
+		
+		
+		Contact contact = contactService.getContact(id);
+		
+		if(contact.getUser().getUserId() != user.getUserId()) {
+			httpSession.setAttribute("cannot delete contact", "success");
+			return "redirect:/user/viewcontacts/0";
+			
+		}else {
+			
+			contactService.deleteContact(id);
+		}
+		httpSession.setAttribute("message", new Message("deleted successfully", "danger"));
+		
+		return "redirect:/user/viewcontacts/0";
+	}
+
 }
