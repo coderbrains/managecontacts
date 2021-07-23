@@ -189,5 +189,35 @@ public class UserController {
 		
 		return "redirect:/user/viewcontacts/0";
 	}
+	
+	//UPDATION OF THE CONTACT CLICKED ACCORDINGLY...
+	
+	@GetMapping("/updateContact/{id}")
+	public String updateContact(@PathVariable("id") int id, Model model, Principal principal)
+	{
+		
+		try {
+			
+			String name = principal.getName();
+			User user = userService.getUser(name);
+			
+			
+			model.addAttribute("title", "update contact | smart contact manager.");
+			Contact contact = contactService.getContact(id);
+			model.addAttribute("contact", contact);
+			
+			if(user.getUserId() != contact.getUser().getUserId()) {
+				return "unauthorized";
+			}
+			return "normal/updateContact";	
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return "unauthorized";
+		}
+		
+		
+	}
+	
 
 }

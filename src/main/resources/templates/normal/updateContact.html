@@ -8,6 +8,7 @@
 <body>
 
 	<section>
+
 		<div class="container">
 
 			<div class="card mr-3">
@@ -23,7 +24,7 @@
 
 							<div class="col-md-10 offset-md-1">
 
-								<form action="#" th:action="@{/user/submit_contact}"
+								<form action="#" th:action="@{ '/user/updateContact/' + ${contact.contactID}}"
 									method="POST" th:object="${contact}"
 									enctype="multipart/form-data" class="mt-2">
 
@@ -38,7 +39,8 @@
 													<i class="fa fa-user-plus"></i>
 												</div>
 											</div>
-											<input type="text"  required class="form-control" name="name"
+											<input type="text" th:value="${contact.name}" required
+												class="form-control" name="name"
 												placeholder="Enter name here">
 										</div>
 									</div>
@@ -56,8 +58,8 @@
 												</div>
 											</div>
 											<input type="text" class="form-control" required
-												name="nickName" id="inlineFormInputGroup"
-												placeholder="Enter Nick-Name here">
+												name="nickName" th:value="${contact.nickName}"
+												id="inlineFormInputGroup" placeholder="Enter Nick-Name here">
 										</div>
 									</div>
 
@@ -75,7 +77,8 @@
 											</div>
 											<input required type="number" class="form-control"
 												name="mobileNumber" id="inlineFormInputGroup"
-												placeholder="Enter Mobile number">
+												placeholder="Enter Mobile number"
+												th:value="${contact.mobileNumber}">
 										</div>
 									</div>
 
@@ -92,7 +95,7 @@
 											</div>
 											<input required type="email" class="form-control"
 												name="email" id="inlineFormInputGroup"
-												placeholder="Enter Email Id" >
+												placeholder="Enter Email Id" th:value="${contact.email}">
 										</div>
 									</div>
 
@@ -107,7 +110,8 @@
 												</div>
 											</div>
 											<input required type="text" class="form-control" name="work"
-												id="inlineFormInputGroup" placeholder="Enter Designation" >
+												id="inlineFormInputGroup" placeholder="Enter Designation"
+												th:value="${contact.work}">
 										</div>
 									</div>
 
@@ -116,8 +120,9 @@
 
 									<div class="col-auto mt-2">
 
-										<textarea name="contactDescription"
-										id="mytextarea" placeholder="Enter the contact description here.."
+										<textarea name="contactDescription" id="mytextarea"
+											th:value="${contact.contactDescription}"
+											placeholder="Enter the contact description here.."
 											class="form-control" rows="10"></textarea>
 
 									</div>
@@ -144,9 +149,7 @@
 
 									<div class="container text-center mt-3">
 
-										<button type="submit" class="btn btn-primary">Save
-											Button</button>
-										<button type="reset" class="btn btn-primary">Reset</button>
+										<button type="submit" class="btn btn-primary">Update</button>
 
 									</div>
 
@@ -177,6 +180,8 @@
 				selector : '#mytextarea'
 			});
 		</script>
+
+
 	</section>
 
 
