@@ -96,7 +96,7 @@ public class UserController {
 
 				System.out.println("file is uploaded...");
 
-				session.setAttribute("message", new Message("File is added successfully..", "success"));
+				session.setAttribute("message", new Message("contact is added successfully..", "success"));
 			}
 
 			String name = principal.getName();
@@ -143,6 +143,8 @@ public class UserController {
 	@GetMapping("/viewcontact/{id}")
 	public String viewDetails(@PathVariable("id") int id, Model model, Principal principal) {
 
+		model.addAttribute("title", "viewcontact | smart contact manager");
+		
 		try {
 			String name = principal.getName();
 
@@ -168,56 +170,106 @@ public class UserController {
 
 	@GetMapping("/deletecontact/{id}")
 	public String deleteContact(@PathVariable("id") int id, Principal principal, HttpSession httpSession) {
-		
-		
+
 		String name = principal.getName();
-		
+
 		User user = userService.getUser(name);
-		
-		
+
 		Contact contact = contactService.getContact(id);
-		
-		if(contact.getUser().getUserId() != user.getUserId()) {
+
+		if (contact.getUser().getUserId() != user.getUserId()) {
 			httpSession.setAttribute("cannot delete contact", "success");
 			return "redirect:/user/viewcontacts/0";
-			
-		}else {
-			
+
+		} else {
+
 			contactService.deleteContact(id);
 		}
 		httpSession.setAttribute("message", new Message("deleted successfully", "danger"));
-		
+
 		return "redirect:/user/viewcontacts/0";
 	}
-	
-	//UPDATION OF THE CONTACT CLICKED ACCORDINGLY...
-	
+
+	// UPDATION OF THE CONTACT CLICKED ACCORDINGLY...
+
 	@GetMapping("/updateContact/{id}")
-	public String updateContact(@PathVariable("id") int id, Model model, Principal principal)
-	{
-		
+	public String updateContact(@PathVariable("id") int id, Model model, Principal principal) {
+
 		try {
-			
+
 			String name = principal.getName();
 			User user = userService.getUser(name);
-			
-			
+
 			model.addAttribute("title", "update contact | smart contact manager.");
 			Contact contact = contactService.getContact(id);
 			model.addAttribute("contact", contact);
-			
-			if(user.getUserId() != contact.getUser().getUserId()) {
+
+			if (user.getUserId() != contact.getUser().getUserId()) {
 				return "unauthorized";
 			}
-			return "normal/updateContact";	
-			
-		}catch (Exception e) {
+			return "normal/updateContact";
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "unauthorized";
 		}
-		
-		
+
 	}
-	
+
+	// submission of the update contact
+	@PostMapping("/updateContact_submit/{id}")
+	public String update(@ModelAttribute Contact contact1, @RequestParam("image") MultipartFile image,
+			@PathVariable("id") int id, Principal principal) {
+
+		try {
+
+			Contact contact = contactService.getContact(id);
+
+			String name = principal.getName();
+			User user = userService.getUser(name);
+
+			if (user.getUserId() != contact.getUser().getUserId()) {
+				return "unauthorized";
+			} else {
+
+				contact.setName(contact1.getName());
+				contact.setEmail(contact1.getEmail());
+
+				if (!image.isEmpty()) {
+					
+
+					String originalFilename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+
+					contact.setImageUrl(originalFilename);
+
+					File file = new ClassPathResource("static/img").getFile();
+
+					Path path = Paths.get(file.getAbsolutePath() + File.separator + originalFilename);
+
+					Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+				}
+
+				contact.setMobileNumber(contact1.getMobileNumber());
+
+				contact.setContactDescription(contact1.getContactDescription());
+
+				contact.setWork(contact1.getWork());
+				contact.setNickName(contact1.getNickName());
+
+				Contact updateCon = contactService.updateCon(contact);
+
+				System.out.println(updateCon);
+
+				return "redirect:/user/viewcontacts/0";
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "unauthorized";
+		}
+
+	}
 
 }

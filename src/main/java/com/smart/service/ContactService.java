@@ -39,6 +39,12 @@ public class ContactService {
 		contactRepo.deleteById(id);
 		
 	}
+
+
+	public Contact updateCon(Contact contact) {
+		Contact save = contactRepo.save(contact);
+		return save;
+	}
 	
 }
 
