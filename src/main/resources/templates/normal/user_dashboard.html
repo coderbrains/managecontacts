@@ -1,14 +1,105 @@
 <!doctype html>
-<html lang="en"  th:xmlns="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<html lang="en" th:xmlns="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
 <head>
-	<meta charset="UTF-8" />
-	<title th:text= "${title}"></title>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
 </head>
 <body>
-	
-<section>
-<h1 th:text= "${user.userName}"></h1>
-</section>
+
+	<section>
+		<div class="container-fluid">
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<a th:href="@{/user/add-contact}" class="btn btn-block btn-outline-danger">Get started</a>
+
+						<div class="row mt-5">
+							<div class="col-md-4 col-sm-12 col-xs-12">
+
+
+								<div class="card ">
+
+									<img class="text-center  card-img-top img-fluid"
+										style="max-width: 300px; max-height: 300px;"
+										src="/img/contact.png" alt="Card image cap">
+									<div class="card-body text-center">
+
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+											elit. Iste iure optio quibusdam quaerat numquam vero. Quia
+											maiores aut possimus non excepturi debitis autem dignissimos
+											numquam modi vel saepe rem voluptatem?</p>
+
+
+										<a href="#" class="btn btn-primary">Go somewhere</a>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="col-md-4 col-sm-12 col-xs-12">
+
+								<div class="card" style="border: none;">
+
+
+
+									<div class="card ">
+
+										<img class="text-center  card-img-top img-fluid"
+											style="max-width: 300px; max-height: 300px;"
+											src="/img/contact.png" alt="Card image cap">
+										<div class="card-body text-center">
+
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit. Iste iure optio quibusdam quaerat numquam vero. Quia
+												maiores aut possimus non excepturi debitis autem dignissimos
+												numquam modi vel saepe rem voluptatem?</p>
+
+
+											<a href="#" class="btn btn-primary">Go somewhere</a>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+							<div class="col-md-4 col-sm-12 col-xs-12">
+
+								<div class="card" style="border: none;">
+
+
+
+									<div class="card ">
+
+										<img class="text-center  card-img-top img-fluid"
+											style="max-width: 300px; max-height: 300px;"
+											src="/img/contact.png" alt="Card image cap">
+										<div class="card-body text-center">
+
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing
+												elit. Iste iure optio quibusdam quaerat numquam vero. Quia
+												maiores aut possimus non excepturi debitis autem dignissimos
+												numquam modi vel saepe rem voluptatem?</p>
+
+
+											<a href="#" class="btn btn-primary">Go somewhere</a>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 
 </body>
