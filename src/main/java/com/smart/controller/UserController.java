@@ -302,11 +302,15 @@ public class UserController {
 
 	// submit updated user
 	@PostMapping("/submitUser")
-	public String submitUser(@ModelAttribute User user, @RequestParam("imageUser") MultipartFile image) throws IOException {
+	public String submitUser(@ModelAttribute User user, @RequestParam("imageUser") MultipartFile image,
+			Principal principal) throws IOException {
 
 		if (image.isEmpty()) {
-			user.setImageUrl("contact.png");
+			System.out.println("file has no content..");
+
 		} else {
+
+			System.out.println("file has some content..");
 
 			String originalFilename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
 
@@ -319,7 +323,34 @@ public class UserController {
 			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 		}
 
-		return "";
+		String name = principal.getName();
+		User user2 = userService.getUser(name);
+
+		user2.setEmail(user.getEmail());
+		user2.setImageUrl(user.getImageUrl());
+		user2.setUserAbout(user.getUserAbout());
+		user2.setUserName(user.getUserName());
+
+		User updateUser = userService.updateUser(user2);
+
+		System.out.println(updateUser);
+
+		return "redirect:/user/profile";
+
+	}
+
+	// deleting the user at single click..
+
+	@GetMapping("/deleteUser")
+	public String deleteUser(Principal principal, HttpSession session) {
+
+		String name = principal.getName();
+		User user = userService.getUser(name);
+		userService.deleteUserById(user.getUserId());
+
+		session.setAttribute("message",
+				new Message("your account has been deleted successfully ! this cannot be undone!!!", "danger"));
+		return "redirect:/signin";
 
 	}
 

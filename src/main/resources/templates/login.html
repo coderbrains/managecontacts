@@ -17,6 +17,16 @@
 						<div id="login-box" class="col-md-12 ">
 
 
+							<div th:if="${session.message}"
+								th:classappend="${session.message.type}"
+								class="alert alert-primary" role="alert">
+								<p th:text="${session.message.content}"></p>
+								<th:block>
+									<p th:text="${#session.removeAttribute('message')}"></p>
+								</th:block>
+
+							</div>
+
 							<div th:if="${param.error}" class="alert alert-danger">
 								Invalid Username or Password</div>
 

@@ -68,7 +68,7 @@ public class HomeController {
 				user.setImageUrl("default.png");
 				
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
-				
+				user.setImageUrl("contact.png");
 				userService.setUser(user);
 				session.setAttribute("message", new Message("Successfully registered.", "alert-success"));
 				return "signup";
@@ -88,5 +88,13 @@ public class HomeController {
 		model.addAttribute("title", "Login | smart contact manager");
 		return "login";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

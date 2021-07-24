@@ -37,4 +37,10 @@ public class UserService {
 		User save = userRepo.save(user);
 		return save;
 	}
+
+
+	public void deleteUserById(int userId) {
+		
+		userRepo.deleteById(userId);
+	}
 }
