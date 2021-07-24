@@ -30,5 +30,11 @@ public class UserService {
 		User byId = userRepo.getById(id);
 		return byId;
 	}
-	
+
+
+	public User updateUser(User user) {
+		
+		User save = userRepo.save(user);
+		return save;
+	}
 }

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" th:xmlns="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-8 offset-md-2 col-sm-12 col-xs-12">
+
+					<div class="card">
+
+						<div class="card-header">
+
+							<h1 class="text-center">Upadate Your Profile</h1>
+
+						</div>
+
+						<div class="card-body">
+
+							<form action="" th:action="@{/user/submitUser}" th:method="post">
+
+
+								<!-- name field -->
+
+
+								<div class="form-group">
+									<label for="exampleInputEmail1">Full Name </label> <input
+										type="text" name="userName" required="required"
+										th:value="${user.userName}" class="form-control "
+										placeholder="Enter your good name">
+
+
+									<!-- password fields -->
+
+									<div class="form-group">
+										<label for="exampleInputEmail1">Email address</label> <input
+											type="email" name="email" th:value="${user.email}" required
+											class="form-control" id="exampleInputEmail1"
+											aria-describedby="emailHelp" placeholder="Enter email">
+									</div>
+
+									<!-- about field -->
+
+									<div class="form-group">
+
+										<textarea name="userAbout" rows="5"
+											placeholder="Enter about yourself"
+											th:value="${user.userAbout}" class="form-control"></textarea>
+
+									</div>
+
+									<div class="form-group">
+										<label for="exampleInputEmail1">Email address</label> <input
+											type="file" name="imageUser" class="form-control"
+											id="exampleInputEmail1" aria-describedby="emailHelp"
+											placeholder="choose photo">
+									</div>
+
+
+									<div class="text-center">
+
+										<button class="btn btn-block btn-primary" type="submit">Update</button>
+
+									</div>
+							</form>
+
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.smart.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
@@ -144,7 +146,7 @@ public class UserController {
 	public String viewDetails(@PathVariable("id") int id, Model model, Principal principal) {
 
 		model.addAttribute("title", "viewcontact | smart contact manager");
-		
+
 		try {
 			String name = principal.getName();
 
@@ -236,7 +238,6 @@ public class UserController {
 				contact.setEmail(contact1.getEmail());
 
 				if (!image.isEmpty()) {
-					
 
 					String originalFilename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
 
@@ -269,6 +270,56 @@ public class UserController {
 			e.printStackTrace();
 			return "unauthorized";
 		}
+
+	}
+
+	// profile section...
+	@GetMapping("/profile")
+	public String profile(Model model, Principal principal) {
+
+		String name = principal.getName();
+		User user = userService.getUser(name);
+
+		model.addAttribute("user", user);
+
+		model.addAttribute("title", "Profile page | Smartcontact manager");
+		return "normal/profile";
+	}
+
+	// update user
+	@GetMapping("/updateUser")
+	public String updateUser(Principal principal, Model model) {
+
+		model.addAttribute("title", "Update user| smart contact manager");
+
+		String name = principal.getName();
+		User user = userService.getUser(name);
+
+		model.addAttribute("user", user);
+
+		return "normal/updateuser";
+	}
+
+	// submit updated user
+	@PostMapping("/submitUser")
+	public String submitUser(@ModelAttribute User user, @RequestParam("imageUser") MultipartFile image) throws IOException {
+
+		if (image.isEmpty()) {
+			user.setImageUrl("contact.png");
+		} else {
+
+			String originalFilename = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+
+			user.setImageUrl(originalFilename);
+
+			File file = new ClassPathResource("static/img").getFile();
+
+			Path path = Paths.get(file.getAbsolutePath() + File.separator + originalFilename);
+
+			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+		}
+
+		return "";
 
 	}
 
