@@ -102,3 +102,20 @@ body{
 	
 	
 }
+
+
+/* css for the search results.. */
+
+.search-container
+{
+	position:relative;
+}
+
+.search-result
+{
+	position:absolute;
+	width:100%;
+	padding:10px;
+	border:1px solid black;
+	display:none;
+}

@@ -45,6 +45,13 @@ public class ContactService {
 		Contact save = contactRepo.save(contact);
 		return save;
 	}
+
+
+	public List<Contact> getcontactsOfUser(User user) {
+		
+		List<Contact> findAllByUser = contactRepo.findAllByUser(user);
+		return findAllByUser;
+	}
 	
 }
 

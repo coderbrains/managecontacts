@@ -22,7 +22,7 @@
 <title th:text="${title}"></title>
 
 </head>
-<body>
+<body ng-app="app" ng-controller="entityController">
 
 	<!-- navbar coding started -->
 
@@ -72,9 +72,10 @@
 			th:href="@{/user/index}" class="item"><i class="fa fa-home mr-1"></i>Home</a>
 
 		<a href="#" th:href="@{/user/add-contact}" class="item"><i
-			class="fa fa-pencil mr-1"></i>Add contacts</a> <a href="#" 
-			 th:href="@{/user/viewcontacts/0}"   class="item"><i
-			class="fa fa-id-card mr-1"></i>View contact</a> <a  th:href="@{/user/profile}" href="#" class="item"><i
+			class="fa fa-pencil mr-1"></i>Add contacts</a> <a href="#"
+			th:href="@{/user/viewcontacts/0}" class="item"><i
+			class="fa fa-id-card mr-1" ng-onclick="test()"></i>View
+			contact</a> <a th:href="@{/user/profile}" href="#" class="item"><i
 			class="fa fa-user-circle mr-1"></i>Your Profile</a> <a href="#"
 			class="item"><i class="fa fa-cogs mr-1"></i>Settings</a> <a href="#"
 			th:href="@{/logout}" class="item"><i class="fa fa-sign-out mr-1"></i>Logout</a>
@@ -99,9 +100,9 @@
 			</div>
 
 		</div>
-		
+
 		<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-		
+
 
 		<div th:replace="${content}"></div>
 
@@ -124,6 +125,25 @@
 		crossorigin="anonymous"></script>
 
 	<script th:src="@{/js/myjs.js}"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+
+
+	<script>
+		var app = angular.module('app', []);
+		app.controller('entityController', function($scope, $http, $compile) {
+
+			$scope.test = function()
+			{
+				console.log("hello this is testing of the api calling...");
+			}
+			
+			
+			//$scope.test();
+			
+		});
+	</script>
 
 
 </body>
