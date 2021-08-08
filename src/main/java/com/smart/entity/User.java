@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,11 +41,14 @@ public class User {
 	private String userName;
 	@Column(unique =  true)
 	private String email;
+	@JsonIgnore
 	private String password;
+	@JsonIgnore
 	private String imageUrl;
 	@Column(length =  1200)
 	private String userAbout;
 	private String userRole;
+	@JsonIgnore
 	private boolean enable;
 	@OneToMany(mappedBy = "user", cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Contact> contacts = new ArrayList<>();

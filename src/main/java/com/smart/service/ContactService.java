@@ -52,6 +52,14 @@ public class ContactService {
 		List<Contact> findAllByUser = contactRepo.findAllByUser(user);
 		return findAllByUser;
 	}
+
+
+	public List<Contact> search(String query, User user) {
+		
+		List<Contact> findByNameContainingAndUser = contactRepo.findByNameContainingAndUser(query,user);
+		return findByNameContainingAndUser;
+		
+	}
 	
 }
 

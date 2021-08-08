@@ -1,5 +1,7 @@
 package com.smart.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +29,10 @@ public class UserService {
 	
 	public User getUserusingField(int id) {
 		
-		User byId = userRepo.getById(id);
-		return byId;
+		Optional<User> findById = userRepo.findById(id);
+		User user = findById.get();
+		return user;
+		
 	}
 
 

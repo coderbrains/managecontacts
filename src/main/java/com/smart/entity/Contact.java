@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,7 @@ public class Contact {
 	@Column(length = 1200)
 	private String contactDescription;
 	private String imageUrl;
+	@JsonBackReference
 	@ManyToOne
 	private User user;
 	
