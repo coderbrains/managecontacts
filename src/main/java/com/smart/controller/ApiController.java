@@ -54,6 +54,7 @@ public class ApiController {
 	@GetMapping("/searchcontacts/{query}")
 	public ResponseEntity<?> searchcontacts(@PathVariable("query") String query, Principal principal)
 	{
+		System.out.println(query);
 		String name = principal.getName();
 		User user = userService.getUser(name);
 		List<Contact> search = contactService.search(query,user);
